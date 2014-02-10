@@ -3,53 +3,36 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <title>index</title>
-  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="js/xml2json.js" type="text/javascript" charset="utf-8"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-  <script src="http://code.angularjs.org/1.2.10/angular-animate.min.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript" src="js/app.js"></script>
-  <script type="text/javascript" src="js/animations.js"></script>
-  <link rel="stylesheet" href="animate.css" type="text/css" media="screen" title="no title" charset="utf-8">
-   <style type="text/css" media="screen">
-   .carousel-images-wrapper {
-    width: 500px;
-    height: 500px;
-    position: relative;
-    background:red;
-   }
-
-   .carousel {
-    display: block;
-    position: absolute;
-    z-index: 1001;
-   }
-
-   .ng-hide {
-    z-index:0 !important;
-   }
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <style type="text/css" media="screen">
+   
 
   </style>
 </head>
 <body data-ng-app="homeCarousel">
   <div data-ng-controller="homeCarouselController" class="carousel-wrapper">
-    <img ng-src="{{images[selectedImage].image}}">
     <ul class="carousel-nav">
       <li ng-repeat="image in images">
         <a href="" ng-click="setSelected($index)">image {{$index + 1}}</a>
       </li>
     </ul>
 
-    <div class="carousel-images-wrapper">
+    <ul>
+      <li><a href="" ng-click="nextSlide()">next</a></li>
+      <li><a href="" ng-click="previousSlide()">previous</a></li>
 
-      <img ng-repeat="image in images" ng-show="selectedImage==$index" ng-src="{{image.image}}" class="carousel">
+    <div class="carousel-images-wrapper">
+      <img ng-src="{{oldImage}}" class="fader">
+      <img ng-repeat="image in images" ng-show="selectedImage==$index" ng-src="{{image.image}}" class="carousel" ng-class="{active:$index == selectedImage}">
     </div>  
 
     <ul>
       <p ng-repeat="image in images" ng-show="selectedImage==$index" class="carousel-caption">{{image.caption}}</p>
     </ul>
 
-    
   </div>
 </body>
 </html>

@@ -1,33 +1,36 @@
-var homeCarousel = angular.module('homeCarousel', ['ngAnimate']);
+var homeCarousel = angular.module('homeCarousel', []);
   
   function homeCarouselController($scope) {
     $scope.images = [
-
       {
-        image: "http://placehold.it/500x500&text=1",
-        caption: "This is my creed"
+        image: "http://flickholdr.com/500/500/sun",
+        caption: "Caption for image 1"
       },
       {
-        image: "http://placehold.it/500x500&text=2",
-        caption: "This is my code"
+        image: "http://flickholdr.com/500/500/sea",
+        caption: "Caption for image 2"
       },
       {
-        image: "http://placehold.it/500x500&text=3",
-        caption: "3"
+        image: "http://flickholdr.com/500/500/",
+        caption: "Caption for image 3"
       }
-
     ];
 
-    //initial starting image
 
     $scope.selectedImage = 0;
+    $scope.oldImage = "";
 
-    $scope.$watch('selectedImage', function() {
-      
+    $scope.$watch('selectedImage', function(newVal, oldVal) {
+      $scope.setPreviousImage(oldVal)
     });
 
     $scope.setSelected = function(selected) {
       $scope.selectedImage = selected
+      jQuery(".fader").stop().show().fadeOut();
+    },
+
+    $scope.setPreviousImage = function(oldVal) {
+      $scope.oldImage = $scope.images[oldVal].image;
     },
 
     $scope.nextSlide = function() {
@@ -36,13 +39,13 @@ var homeCarousel = angular.module('homeCarousel', ['ngAnimate']);
       } else if ($scope.selectedImage + 1 >= $scope.images.length ) {
         $scope.setSelected(0);
       }
+    },
+
+    $scope.previousSlide = function() {
+        if ( $scope.selectedImage == 0 ) {
+          $scope.setSelected($scope.images.length - 1)
+        } else {
+          $scope.setSelected($scope.selectedImage -= 1)
+      }
     }
-
-
-    //Auto Increment
-    // var carouselTimer = setInterval(function() {
-    //   $scope.$apply(function() {
-    //     $scope.nextSlide()
-    //   });
-    // }, 3000);
   }
