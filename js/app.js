@@ -25,8 +25,10 @@ var homeCarousel = angular.module('homeCarousel', []);
     });
 
     $scope.setSelected = function(selected) {
-      $scope.selectedImage = selected
-      jQuery(".fader").stop().show().fadeOut();
+      if ($scope.selectedImage != selected) {
+        $scope.selectedImage = selected
+        jQuery(".fader").stop().show().fadeOut();
+      }
     },
 
     $scope.setPreviousImage = function(oldVal) {
